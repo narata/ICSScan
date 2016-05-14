@@ -12,7 +12,7 @@ require_once('common.php');
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -66,19 +66,20 @@ require_once('common.php');
 						<span class="icon-bar">2</span>
 						<span class="icon-bar">3</span>
 					</button>
-					<a class="navbar-brand" href="#" style="padding: 5px;">
+					<a class="navbar-brand" href="index.php" style="padding: 5px;">
 						<img src="images/logo.ico" class="" style="width: 40px;height: 40px;">
 					</a>
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="index.php">
 						<strong>ICSScan</strong>
 					</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="portscans.php">PortScans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li><a href="plugins.php">Plugins</a></li>
-						<?php if (already_login()) {echo '<li><a href="configs.php">Configs</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="icsfind.php">ICSfind</a></li>';}?>
 						<li><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
 					</ul>
@@ -128,8 +129,8 @@ EOF;
 <!-- 		<div class="jumbotron">
 			<div class="container">
 				<h1>What's ICSScan?</h1>
-				<p>IcsScan is a web vulnnerability scanner, but more of a vulnerability scan framework. It supports plug-in extensions, you can design your own hammer, that is your hacking tool. Hammer is open source, and i hope you can share yours! </p>
-				<p><a class="btn btn-primary btn-lg" role="button" href="https://www.github.com/yangbh/Hammer">Design Your Hammer &raquo;</a></p>
+				<p>IcsScan is a web vulnnerability scanner, but more of a vulnerability scan framework. It supports plug-in extensions, you can design your own ICSScan, that is your hacking tool. ICSScan is open source, and i hope you can share yours! </p>
+				<p><a class="btn btn-primary btn-lg" role="button" href="https://www.github.com/yangbh/ICSScan">Design Your ICSScan &raquo;</a></p>
 			</div>
 		</div> -->
 
@@ -142,7 +143,15 @@ EOF;
 					<div class="inner">
 						<h1>ICSScan -- a ics vulnnerability scanner.</h1>
 						<p>ICSScan 漏洞扫描系统，你值得拥有。</p>
-						<a class="btn" href="https://github.com/yangbh/Hammer">下载</a>
+						<a class="btn" href="https://github.com/narata/ICSScan">Download</a>
+					</div>
+				</li>
+
+				<li style="background-image: url('images/wood.jpg');">
+					<div class="inner">
+						<h1>ICSScan -- a ics vulnnerability scanner.</h1>
+						<p>ICSScan 漏洞扫描系统，你值得拥有。</p>
+						<a class="btn" href="https://github.com/narata/ICSScan">Download</a>
 					</div>
 				</li>
 
@@ -150,7 +159,7 @@ EOF;
 					<div class="inner">
 						<h1>ICSScan -- a ics vulnnerability scanner.</h1>
 						<p>ICSScan 漏洞扫描系统，你值得拥有。</p>
-						<a class="btn" href="https://github.com/yangbh/Hammer">下载</a>
+						<a class="btn" href="https://github.com/narata/ICSScan">Download</a>
 					</div>
 				</li>
 
@@ -158,7 +167,7 @@ EOF;
 					<div class="inner">
 						<h1>ICSScan -- a ics vulnnerability scanner.</h1>
 						<p>ICSScan 漏洞扫描系统，你值得拥有。</p>
-						<a class="btn" href="https://github.com/yangbh/Hammer">下载</a>
+						<a class="btn" href="https://github.com/narata/ICSScan">Download</a>
 					</div>
 				</li>
 			</ul>
@@ -168,17 +177,17 @@ EOF;
 			<div class="row">
 				<div class="col-md-4">
 					<h2>Framework</h2>
-					<p>Hammer is coded in Python, so it can cross platform, you can use hammer in windows, linux and mac... </p>
+					<p>ICSScan is coded in Python, so it can cross platform, you can use ICSScan in windows, linux and mac... </p>
 					<p><a class="btn btn-default" href="documents.php#framework" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-md-4">
 					<h2>API Docs</h2>
-					<p>In hammer, almost everything is plugin. If you want design you own plugins, you must know how to. API documents just tells you that. </p>
+					<p>In ICSScan, almost everything is plugin. If you want design you own plugins, you must know how to. API documents just tells you that. </p>
 					<p><a class="btn btn-default" href="documents.php#plugin" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-md-4">
 					<h2>About</h2>
-					<p>I also wish you can share your own good ideas, tools and plugins. Want know the design of Hammer? </p>
+					<p>I also wish you can share your own good ideas, tools and plugins. Want know the design of ICSScan? </p>
 					<p><a class="btn btn-default" href="about.php" role="button">View details &raquo;</a></p>
 				</div>
 			</div>
@@ -186,7 +195,7 @@ EOF;
 			<hr>
 
 			<footer>
-				<p>&copy; Company 2014</p>
+				<p>&copy; ICS-426-2016</p>
 			</footer>
 		</div>
 

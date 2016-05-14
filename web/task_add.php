@@ -32,7 +32,7 @@ function add_task($target,$arguments){
 	$target = check_sql($target);
 	$time = time();
 	// $argJson = base64_encode(json_encode($arguments));
-	// $argJson = json_encode($arguments,JSON_FORCE_OBJECT);
+	// $argJson = json_encaode($arguments,JSON_FORCE_OBJECT);
 	$argJson = json_encode($arguments);
 	$argJson = mysql_real_escape_string($argJson);
 

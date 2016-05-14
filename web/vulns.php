@@ -17,7 +17,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Documentation extras -->
 		<link href="css/docs.min.css" rel="stylesheet">
 		<style type="text/css">
@@ -71,7 +71,7 @@ if (!already_login()) {
 			// alert(scanID);
 			//	scan_title 扫描结果总结界面
 			var number =0;
-			$.get('scans_search.php',{scanid: scanID},function(data){
+			$.get('vulscans_search.php',{scanid: scanID},function(data){
 				var json = jQuery.parseJSON(data);
 				// console.log(json.data)
 				var target = json.data[0][1];

@@ -12,7 +12,7 @@ require_once('common.php');
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<style type="text/css">
@@ -109,15 +109,15 @@ require_once('common.php');
 						<img src="images/logo.ico" class="" style="width: 40px;height: 40px;">
 					</a>
 					<a class="navbar-brand" href="#">
-						<strong>Hammer</strong>
+						<strong>ICSScan</strong>
 					</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li class="active"><a href="plugins.php">Plugins</a></li>
-						<?php if (already_login()) {echo '<li><a href="configs.php">Configs</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="icsfind.php">icsfind</a></li>';}?>
 						<li><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
 					</ul>
@@ -217,7 +217,7 @@ EOF;
 			</div> -->
 			<hr>
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 		</div>
 

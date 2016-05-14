@@ -17,7 +17,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<style type="text/css">
@@ -186,7 +186,7 @@ if (!already_login()) {
 			</div>
 			<hr>
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 		</div>
 

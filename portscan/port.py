@@ -17,12 +17,7 @@ common_port_list = [
     13720,13721,13722,13724,13782,13783,22273,26000,26208,33434
 ]
 
-def service(port):
-    service_list = {
+service_list = {
         102:"Semens S7",502:"Modbus",2404:"IEC 60870-5-104",20000:"DNP3",44818:"EtherNet/IP",47808:"BACnet",1911:"Tridium Niagara Fox",
         9600:"OMRON FINS",1962:"PCWorx",20547:"ProConOs",5007:"MELSEC-Q",789:"Crimson V3"
     }
-    try:
-        return service_list[port]
-    except:
-        return "Not ics port"

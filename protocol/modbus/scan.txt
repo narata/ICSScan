@@ -1,0 +1,2 @@
+{'info': [(0, 'Device: Schneider Electric SAS TSXETY4103 V5.2 '), (255, 'Device: Schneider Electric SAS TSXETY4103 V5.2 ')], 'host': '109.3.164.230', 'port': 502}
+{'info': [(0, 'Device: Schneider Electric SAS TSXETY4103 V5.2 '), (255, 'Device: Schneider Electric SAS TSXETY4103 V5.2 ')], 'host': '109.3.164.230', 'port': 502}

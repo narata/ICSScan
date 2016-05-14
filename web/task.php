@@ -17,7 +17,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- jquery -->
 		<!-- <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
 		<script src="js/jquery.min.js"></script>
@@ -218,7 +218,7 @@ if (!already_login()) {
 			</div>
 			<hr>
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 		</div>
 

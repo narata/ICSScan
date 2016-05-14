@@ -16,7 +16,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Documentation extras -->
 		<link href="css/docs.min.css" rel="stylesheet">
 		<!-- jquery -->
@@ -119,7 +119,7 @@ if (!already_login()) {
 				success: function(msg){
 					if (msg == true) {alert('Add Task Success');}
 					else {alert('Add Task Faild' + msg);}
-					location.href = 'scans.php';
+					location.href = 'vulscans.php';
 				}
 			});
 		}
@@ -169,15 +169,15 @@ if (!already_login()) {
 
 			$.ajax({
 				type: "GET",
-				url: 'configs_search.php',
+				url: 'icsfind_search.php',
 				data: "name=",
 				dataType: "json",
 				success: function(data){
 					console.log(data.data);
-					configs = data.data;
+					icsfind = data.data;
 					var spans = '<ul class="list-inline">';
-					for(var i =0;i < configs.length; i++){
-						config = configs[i];
+					for(var i =0;i < icsfind.length; i++){
+						config = icsfind[i];
 						if(config[6] == '1'){
 							spans += '<li>\
 								<input tabindex="15" type="radio" id="flat-radio-1" name="flat-radio" checked>\
@@ -191,14 +191,14 @@ if (!already_login()) {
 							}
 					}
 					spans += '</ul>';
-					$('#configs').html(spans);
+					$('#icsfind').html(spans);
 					
 					$('li > input').click(function(){
 						// $(this).parent().attr("");
 						var name = $(this).parent().children("label").text();
 						// alert(name);
 						$.ajax({
-							url:'configs_search.php',
+							url:'icsfind_search.php',
 							data: {name: name},
 							type: "GET",
 							dataType: 'json',
@@ -346,7 +346,7 @@ if (!already_login()) {
 									No dispatchers created yet !<a target="_blank" href="http://www.python.org/">Depends on Python 2.7.*</a><br>
 								</div></p>
 								<p>Just paste following command at terminal prompt. <i>-m</i> options specifies maximum number of concurrent tasks.<br></p>
-								<code>python hammer.py -s <?php echo $_SERVER['HTTP_HOST'].str_replace('/task_create.php','',$_SERVER['PHP_SELF']);?> -t <?php $a=get_userinfo();echo $a['Token'];?> -l</code>
+								<code>python ICSScan.py -s <?php echo $_SERVER['HTTP_HOST'].str_replace('/task_create.php','',$_SERVER['PHP_SELF']);?> -t <?php $a=get_userinfo();echo $a['Token'];?> -l</code>
 							</div>
 						</div>
 					</div>
@@ -426,9 +426,9 @@ if (!already_login()) {
 					<div class="panel-body collapse in" id="modules">
 						<div class="row form-line">
 							<div class="col-md-2">
-								<blockquote>Configs</blockquote>
+								<blockquote>icsfind</blockquote>
 							</div>
-							<div class="col-md-10" id="configs">
+							<div class="col-md-10" id="icsfind">
 							</div>
 						</div>
 						<div class="panel panel-default form-group">
@@ -467,11 +467,8 @@ if (!already_login()) {
 			</form>
 			<hr>
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 		</div>
-		<!-- ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	</body>
 </html>

@@ -4,7 +4,7 @@
 // $DB_NAME = SAE_MYSQL_DB;
 // $DB_USER = SAE_MYSQL_USER;
 // $DB_PWD = SAE_MYSQL_PASS;
-// $DB_SALT = 'hammer';
+// $DB_SALT = 'ICSScan';
 
 $DB_HOST = '127.0.0.1';
 $DB_PORT = '3306';

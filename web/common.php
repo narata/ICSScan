@@ -1,16 +1,14 @@
 <?php
 require_once('config.php');
+
 //	init mysql db
 # start session
 session_set_cookie_params(2*3600);
 session_start();
 
 ini_set('display_errors','off');
-// error_reporting(E_ALL);
-// error_reporting(E_ERROR);
-$con = mysql_connect($DB_HOST.':'.$DB_PORT,$DB_USER,$DB_PWD,$DB_NAME);
 
-// $con = mysql_connect($DB_HOST,$DB_USER,$DB_PWD,$DB_NAME);
+$con = mysql_connect($DB_HOST.':'.$DB_PORT,$DB_USER,$DB_PWD,$DB_NAME);
 
 if (!$con) {
 	die('Could not connect: ' . mysql_error());
@@ -19,6 +17,7 @@ mysql_select_db($DB_NAME,$con);
 mysql_query('set names utf8');
 
 ?>
+
 <?php
 function check_sql($value){
 	// 去除斜杠

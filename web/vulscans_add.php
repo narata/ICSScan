@@ -1,6 +1,7 @@
 <?php
 require_once('common.php');
 ?>
+
 <?php
 //	check login first
 if (!already_login()) {

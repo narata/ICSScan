@@ -12,7 +12,7 @@ require_once('common.php');
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		
@@ -81,15 +81,15 @@ require_once('common.php');
 						<img src="images/logo.ico" class="" style="width: 40px;height: 40px;">
 					</a>
 					<a class="navbar-brand" href="#">
-						<strong>Hammer</strong>
+						<strong>ICSScan</strong>
 					</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li><a href="plugins.php">Plugins</a></li>
-						<?php if (already_login()) {echo '<li><a href="configs.php">Configs</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="icsfind.php">icsfind</a></li>';}?>
 						<li class="active"><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
 					</ul>
@@ -158,7 +158,7 @@ EOF;
 				<div class="col-xs-10 col-sm-10 col-md-10" role="main" class="main">
 
 					<h2 id="about">关于</h2>
-						<p>Hammer 不只是一款网络扫描器，更是一个扫描框架，Hammer类似开源的yascanner（当然，目前功能还远不如yascanner，yascanner是我的偶像），与yascanner类似，它偏向于WEB漏洞的收集与检测，不太具有攻击性.</p>
+						<p>ICSScan 不只是一款网络扫描器，更是一个扫描框架，ICSScan类似开源的yascanner（当然，目前功能还远不如yascanner，yascanner是我的偶像），与yascanner类似，它偏向于WEB漏洞的收集与检测，不太具有攻击性.</p>
 						<p>开源不易，希望大家也能够开源出自己的插件，一起打造自己的锤子！！！</p>
 					<hr>
 					<h2 id="run">运行</h2>
@@ -174,11 +174,11 @@ EOF;
 	 ░  ░░ ░  ░   ▒   ░      ░   ░      ░      ░     ░░   ░ 
 	 ░  ░  ░      ░  ░       ░          ░      ░  ░   ░     
 	
-Usage: hammer.py [Auth] [Options] [Targets]
+Usage: ICSScan.py [Auth] [Options] [Targets]
 
 [Auth]
-	-s --server: your hammer web server host address, like www.hammer.org
-	-t --token: token, find it in http://www.hammer.org/user.php
+	-s --server: your ICSScan web server host address, like www.ICSScan.org
+	-t --token: token, find it in http://www.ICSScan.org/user.php
 [Options]
 	-u --update-plugins: update new added plugins to web
 	-v --verbose: increase verbosity level
@@ -194,29 +194,29 @@ Usage: hammer.py [Auth] [Options] [Targets]
 	   --max-size: scan pool max size, default 50
 	-c --console: console mode
 [Examples]
-	hammer.py -s www.hammer.org -t 3r75... -u plugins/Info_Collect/
-	hammer.py -s www.hammer.org -t 3r75... -T 192.168.1.1/24
-	hammer.py -s www.hammer.org -t 3r75... -p plugins/System/iisshort.py -T target</pre>
+	ICSScan.py -s www.ICSScan.org -t 3r75... -u plugins/Info_Collect/
+	ICSScan.py -s www.ICSScan.org -t 3r75... -T 192.168.1.1/24
+	ICSScan.py -s www.ICSScan.org -t 3r75... -p plugins/System/iisshort.py -T target</pre>
 						<h3>1. 四种运行模式————自收集扫描模式、批量扫描模式、listen模式、console模式</h3>
 						<pre>
 1. 常规的类似yascanner自收集扫描模式，扫描目标为一个ip、host、url，系统会自动搜集该target相关目标
-hammer.py -s www.hammer.org -t 3r75... -T www.leesec.com
-例如：	python hammer.py -s www.hammer.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -T 73.50.49.151
+ICSScan.py -s www.ICSScan.org -t 3r75... -T www.leesec.com
+例如：	python ICSScan.py -s www.ICSScan.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -T 73.50.49.151
 
 2. 批量扫描模式，可以是ip范围，也可以－T 从本地文件载入目标host、url等
-hammer.py -s www.hammer.org -t 3r75... -p plugins/System/iisshort.py -T 192.168.1.0/24
-例如：	python hammer.py -s www.hammer.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -p plugins/Info_Collect/portscan.py -T 73.50.49.151
-	python hammer.py -s www.hammer.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -p plugins/System/mongodb_unauth_access.py --plugin-arg "ports=[27017]" -T 73.50.49.151／30
+ICSScan.py -s www.ICSScan.org -t 3r75... -p plugins/System/iisshort.py -T 192.168.1.0/24
+例如：	python ICSScan.py -s www.ICSScan.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -p plugins/Info_Collect/portscan.py -T 73.50.49.151
+	python ICSScan.py -s www.ICSScan.org -t 4aSJWhngmZdhAvkCGt6ODVhHTQ1R4Jzz -p plugins/System/mongodb_unauth_access.py --plugin-arg "ports=[27017]" -T 73.50.49.151／30
 
 3. listen模式，在此模式下可以通过WEB实现简单的分布式管理
-hammer.py -hammer.py -s www.hammer.org -t 3r75... -l [-v]
+ICSScan.py -ICSScan.py -s www.ICSScan.org -t 3r75... -l [-v]
 
 4. console模式，类似mst，扫描结果存入WEB服务器中
-hammer.py -hammer.py -s www.hammer.org -t 3r75... -c
+ICSScan.py -ICSScan.py -s www.ICSScan.org -t 3r75... -c
 此模式下可以在本地缓存server和token等信息，因此第二次使用不需要再带上server和token参数，直接可以：
-hammer.py -c
-hammer.py -l
-hammer.py -T http://testphp.vulnweb.com</pre>
+ICSScan.py -c
+ICSScan.py -l
+ICSScan.py -T http://testphp.vulnweb.com</pre>
 						<h3>2. 详细参数解释</h3>
 						<pre class="prettyprint linenums Lang-python">
 [Auth]
@@ -231,23 +231,23 @@ hammer.py -T http://testphp.vulnweb.com</pre>
 	   --no-gather: 不使用信息收集模块，也可以用下面的--gather-depth=0实现
 	   --gather-depth: 信息收集深度，默认为1
 	-p --plugin: 单独跑一个插件
-	   --plugin-arg: 插件参数，格式为"port=20;name='hammer';"
+	   --plugin-arg: 插件参数，格式为"port=20;name='ICSScan';"
 	-l --listen: 监听模式，在WEB上进行任务分配
 	-c --console: 控制台模式</pre>
 						<h3>3. listen模式详解</h3>
-						<p>listen模式下每个运行hammer.py -l 终端都会被充当成工作worker，并进行持续查询服务器是否存在扫描任务</p>
+						<p>listen模式下每个运行ICSScan.py -l 终端都会被充当成工作worker，并进行持续查询服务器是否存在扫描任务</p>
 						<p>web服务器也充当任务分发的角色</p>
 						
 						<hr>
 						<h3>4. console模式详解</h3>
 						<p>console模式下的命令有</p>
 						<pre class="prettyprint linenums Lang-bash">
-HAMMER COSOLE COMMAND HELP MENU
+ICSScan COSOLE COMMAND HELP MENU
 =============
         COMMAND         DESCRIPTION                       EXAMPLE
         -------         -----------                       -----------
 	help		Displays the help menu            help
-	exit		Exit the Hammer console mode      exit
+	exit		Exit the ICSScan console mode      exit
 	cls 		Clear the screen                  cls
 	set 		Set server and token              set PARAM VALUE
 	connect 	Connect to server                 connect
@@ -267,12 +267,12 @@ PLUGIN HELP MENU
 	run             Start plugin to run               run</pre>
 						<p>首次使用需要登录</p>
 						<pre class="prettyprint linenums Lang-bash">
-Hammer$ python hammer.py -c
+ICSScan$ python ICSScan.py -c
 Seems user info not inited File not open for reading
 Seems user info not inited 'NoneType' object has no attribute '__getitem__'
 [!] Err:has not logged in, please log in first!
 [!] Err:cannot concatenate 'str' and 'NoneType' objects
-[*] Start hammer console ..
+[*] Start ICSScan console ..
 
 	   ██░ ██  ▄▄▄       ███▄ ▄███▓ ███▄ ▄███▓▓█████  ██▀███  
 	  ▓██░ ██▒▒████▄    ▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒▓█   ▀ ▓██ ▒ ██▒
@@ -284,7 +284,7 @@ Seems user info not inited 'NoneType' object has no attribute '__getitem__'
 	   ░  ░░ ░  ░   ▒   ░      ░   ░      ░      ░     ░░   ░ 
 	   ░  ░  ░      ░  ░       ░          ░      ░  ░   ░     
 
-          =[ HAMMER::My Sec Tools
+          =[ ICSScan::My Sec Tools
     + -- +=[ PLU::info::5 com::2 sens::5 sys::10 pwd::2 web::13
 anonymous@local >set server 0xff.sinaapp.com
 anonymous@local >set token XiUfga4xlS4ajBWnlUyBph9wGRxlFHF3
@@ -310,7 +310,7 @@ SEARCH 'iis'
 ==========================================================================
 COUNT [2] RESULTS (*^_^*)
 admin@0xff.sinaapp.com >use 15
-hammer System[ iismethod ] >info
+ICSScan System[ iismethod ] >info
 PLUGIN INFOS
 ============
 PARAMETER       VALUE
@@ -320,26 +320,26 @@ DESCRIPTION     When iis enable PUT or MOVE method, attacker can upload a webshe
 TIME            20140731
 NAME            IIS Method Scanner
 AUTHOR          yangbh
-hammer System[ iismethod ] >opts
+ICSScan System[ iismethod ] >opts
 PLUGIN OPTS
 ===========
 PARAMETER       VALUE                DESCRIPTION                             
 --------------- -------------------- ----------------------------------------
 url             http://testasp.vulnweb.com target url                              
-hammer System[ iismethod ] >run
+ICSScan System[ iismethod ] >run
 [*] Start run..
 [2015-01-22 13:53:14,431] - [WARNING] - 247 0xff.sinaapp.com XiUfga4xlS4ajBWnlUyBph9wGRxlFHF3 http://testasp.vulnweb.com IIS Method Scanner OPTIONS, TRACE, GET, HEAD
-hammer System[ iismethod ] ></pre>
+ICSScan System[ iismethod ] ></pre>
 					<p>登录状态下会将结果保存至web server中</p>					
 					<hr>
 					<h2 id="plugin">插件</h2>
-					<p>下面是一个典型的Hammer插件，功能为扫描robots.txt文件存在与否:</p>
+					<p>下面是一个典型的ICSScan插件，功能为扫描robots.txt文件存在与否:</p>
 					<pre class="prettyprint linenums Lang-python">
 #!/usr/bin/python2.7
 #coding:utf-8
 
 import requests
-# 导入hammer模块各种库
+# 导入ICSScan模块各种库
 from dummy import *
 
 # 插件信息
@@ -405,7 +405,7 @@ opts是一个python list 类型，其中每个变量参数由变量名、变量�
 opts = [
 	['url','http://www.leesec.com','target url'],
 ]
-注意：在hammer中opts变量的值不仅可以为python的string类型，而且可以是dict、list类型，例如mongodb_unauth_access插件
+注意：在ICSScan中opts变量的值不仅可以为python的string类型，而且可以是dict、list类型，例如mongodb_unauth_access插件
 opts = [
 	['ip','221.123.140.66','target ip'],
 	['ports',[27017],'target ip\'s ports']
@@ -413,7 +413,7 @@ opts = [
 其中ports参数的值就是list类型
 在console模式下可以使用 set ports [27017,28017]重新赋值</pre>
 					<h3>3. 插件类型</h3>
-					<p>Hammer的插件总共分为以下七种类型，请将相应的插件放在对应的目录下。</p>
+					<p>ICSScan的插件总共分为以下七种类型，请将相应的插件放在对应的目录下。</p>
 					<pre class="prettyprint linenums Lang-python">
 Info Collect	# 信息收集类插件，目录：plugins/Info_Collect, 注意这类的插件最先运行!
 
@@ -431,8 +431,8 @@ Others		# 其它类型插件，目录：plugins/Others</pre>
 services = {
 	# 常用的
 	'ip':'127.0.0.1',	# 被扫描的ip地址
-	'host':'www.hammer.org',	#被扫描的host域名
-	'url':'http://www.hammer.org',	#被扫描的url
+	'host':'www.ICSScan.org',	#被扫描的host域名
+	'url':'http://www.ICSScan.org',	#被扫描的url
 	'cms':'Wordpress',	# cms类型，基于whatweb扫描结果分析，详情请参考whatweb插件
 	'cmsversion':'3.9.1',	# cms版本，同上 
 	'ports': [22,80],	# 端口号
@@ -490,8 +490,8 @@ logger(debuginfo) # debuginfo为string类型，输出插件运行信息，单独
 					<pre class="prettyprint linenums Lang-python">
 add_target(target) 		# target可以为url\ip\host之一</pre>
 					<p>注意：这个函数只能作为信息收集模块内使用，即放在Infor_Collect目录下，可以参考subdomain.py插件。</p>
-					<h3>9. Hammer框架之dummy.py</h3>
-					<p>dummy.py是仿照yascanner的，是统一导入hammer框架的一些类库，结构有些牛头马面不成样子，在每个目录都得放一个，目前暂未有好的方法解决，留待后期吧</p>
+					<h3>9. ICSScan框架之dummy.py</h3>
+					<p>dummy.py是仿照yascanner的，是统一导入ICSScan框架的一些类库，结构有些牛头马面不成样子，在每个目录都得放一个，目前暂未有好的方法解决，留待后期吧</p>
 					<pre class="prettyprint linenums Lang-python">
 #!/usr/bin/python2.7
 #coding:utf-8
@@ -499,7 +499,7 @@ add_target(target) 		# target可以为url\ip\host之一</pre>
 import os
 import sys
 
-# BASEDIR 为hammer的工作目录
+# BASEDIR 为ICSScan的工作目录
 BASEDIR = os.path.realpath(__file__).replace('/plugins/Sensitive_Info/dummy.pyc','')
 BASEDIR = BASEDIR.replace('/plugins/Sensitive_Info/dummy.py','')
 
@@ -572,7 +572,7 @@ if retflag and locals().has_key('Audit'):
 					<h3>2. whatweb识别cms</h3>
 					<p>本工具中的cms识别采用的是whatweb，有一个whatweb类，在lib/whatWeb_class.py。</p>
 					<p>考虑到原生的whatweb的插件众多，影响扫描效率，所以在lib/whatweb目录下是一个经过插件简化的whatweb。PS：注意kali下whatweb会自动包含/usr/local/share/whatweb目录下的插件，所以也注释了下whatweb的几行代码，有空再找出来细说。</p>
-					<p>Hammer的whatweb插件位于Info_Collect目录下，仍需补充完善，结构如下：</p>
+					<p>ICSScan的whatweb插件位于Info_Collect目录下，仍需补充完善，结构如下：</p>
 					<pre class="prettyprint linenums Lang-python">
 def Audit(services):
 	if services.has_key('url'):
@@ -628,10 +628,10 @@ def Audit(services):
 					<p>每个插件都是可以自己单独运行的，所以单独测试就ok，也请大家测试完成后再提交</p>	
 					<hr>
 					<h2 id="contact">联系</h2>
-						<p>github: <a target="_blank" href="https://github.com/yangbh/Hammer">https://github.com/yangbh/Hammer</a></p>
+						<p>github: <a target="_blank" href="https://github.com/yangbh/ICSScan">https://github.com/yangbh/ICSScan</a></p>
 						<p>QQ群: 397554752</p>
 						<p>感谢：Yascanner、MST、MultiProxies等众多开源及半开源程序</p>
-						<p>感谢：c4bbage、kenan@为Hammer编写插件</p>
+						<p>感谢：c4bbage、kenan@为ICSScan编写插件</p>
 					<hr>	
 				</div><!--/span-->
 
@@ -644,7 +644,7 @@ def Audit(services):
 			<hr>
 
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 
 		</div>

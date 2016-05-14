@@ -16,7 +16,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -93,8 +93,8 @@ if (!already_login()) {
 								Token: <?php $a=get_userinfo();echo $a['Token'];?>
 							</div>
 							<div class="panel-body">
-								<p>Run Hammer like this:</p>
-								<code>python hammer.py -s <?php echo $_SERVER['HTTP_HOST'].str_replace('/user.php','',$_SERVER['PHP_SELF']);?> -t <?php $a=get_userinfo();echo $a['Token'];?> -T http://testphp.vulnweb.com</code>
+								<p>Run ICSScan like this:</p>
+								<code>python ICSScan.py -s <?php echo $_SERVER['HTTP_HOST'].str_replace('/user.php','',$_SERVER['PHP_SELF']);?> -t <?php $a=get_userinfo();echo $a['Token'];?> -T http://testphp.vulnweb.com</code>
 							</div>
 						</div>
 						<div class="panel panel-default" id="token">

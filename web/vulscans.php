@@ -17,7 +17,7 @@ if (!already_login()) {
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<style type="text/css">
@@ -38,59 +38,124 @@ if (!already_login()) {
 		// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
 		// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
 		Date.prototype.Format = function (fmt) { //author: meizz 
-			var o = {
-				"M+": this.getMonth() + 1, //月份 
-				"d+": this.getDate(), //日 
-				"h+": this.getHours(), //小时 
-				"m+": this.getMinutes(), //分 
-				"s+": this.getSeconds(), //秒 
-				"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-				"S": this.getMilliseconds() //毫秒 
-			};
-			if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-			for (var k in o)
-			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-			return fmt;
+				var o = {
+						"M+": this.getMonth() + 1, //月份 
+						"d+": this.getDate(), //日 
+						"h+": this.getHours(), //小时 
+						"m+": this.getMinutes(), //分 
+						"s+": this.getSeconds(), //秒 
+						"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+						"S": this.getMilliseconds() //毫秒 
+				};
+				if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+				for (var k in o)
+				if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+				return fmt;
 		}
 
 		$(document).ready(function () {
+			//  hide plugin_code div
+			$('#plugins').show('fast');
+			//  snippet
+			$("pre.python").snippet("python",{style:"vim",menu:false,showNum:true});
+
+			// datatime
+			$('#datetimepicker').datetimepicker();
+
 			//  plugin table
-			$('#config_table').DataTable({
+			$('#scans_table').DataTable({
 				// "ajax": "./datatable.json",
-				"ajax": "./configs_search.php",
+				"ajax": "./vulscans_search.php",
 				// "paging":   false,
 				"lengthChange": false, //改变每页显示数据数量
 				"pageLength": 15,
 				// "info":     false,
 				"filter":   false,
 				// "ordering": false,
-				"order":    [6, "desc" ],
+				"order":    [2, "desc" ],
 				"columnDefs": [
 					{
-						"targets": [0,3],
+						"targets": [ 0 ],
 						"visible": false,
 						"searchable": false
 					},
 					{
 						"targets": [1],
 						"render": function ( data, type, full, meta ) {
-							return "<a class=\"plugin\" href=\""+"configs_edit.php#"+full[1]+"\">"+data+"</a>";
+								// return "<a class=\"plugin\" href='search.php?name="+encodeURI(data)+"'>"+data+"</a>";
+								return "<a class=\"plugin\" href=\""+"vulns.php#"+full[0]+"\">"+data+"</a>";
 						}
 					},
 					{
-						"targets":[6],
+						"targets":[2],
 						 "render": function ( data, type, full, meta ) {
-							return data == 1?'默认':'';
+								var d = new Date();
+								d.setTime(parseInt(data)*1000);
+								// alert(d.toString());
+								return d.Format("yyyy-MM-dd hh:mm:ss");
 						}
 					},
+					{
+						"targets":[3],
+						"render": function ( data, type, full, meta ) {
+							var startTime = parseInt(full[2]);
+							var endTime = parseInt(data);
+							if (!endTime) {
+									return '';
+							};
+							time = endTime - startTime;
+							var hour = parseInt(time/3600);
+							var min = parseInt(time/60)%60;
+							var sec = time%60;
+							var ret = '';
+							if(hour){
+									ret+=hour+'h,'+min+'m,'+sec+'s';
+							}
+							else{
+										if (min) {
+												ret+=min+'m,'+sec+'s';
+										}
+										else{
+												ret+=sec+'s';
+										}
+							}
+							return ret;
+						},
+					},
+					{
+						"targets":[4],
+						 "render": function ( data, type, full, meta ) {
+								switch(data){
+									case '1':
+										return 'info';
+									case '2':
+										return 'low';
+									case '3':
+										return 'medium';
+									case '4':
+										return 'high';
+									default:
+										return data;
+								}
+						}
+					},
+					{
+						"targets": [ 6 ],
+						"visible": false,
+						"searchable": false
+					},
 				 ]
+			});
+
+			$('#plugin_goback').click(function(){
+				$('#plugins').show('slow');
 			});
 
 			//  search button click
 			$('#search').click(function() {
 				/* Act on the event */
-				var ajax_url = "./configs_search.php?name="+$('#name').val();
-				$('#config_table').DataTable().ajax.url(ajax_url).load();
+				var ajax_url = "./vulscans_search.php?level="+$('#level').val()+"&keyword="+$('#keyword').val();
+				$('#scans_table').DataTable().ajax.url(ajax_url).load();
 			});
 
 		});
@@ -111,15 +176,16 @@ if (!already_login()) {
 						<img src="images/logo.ico" class="" style="width: 40px;height: 40px;">
 					</a>
 					<a class="navbar-brand" href="#">
-						<strong>Hammer</strong>
+						<strong>ICSScan</strong>
 					</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="portscans.php">PortScans</a></li>';}?>
+						<?php if (already_login()) {echo '<li class="active"><a href="vulscans.php">VulScans</a></li>';}?>
 						<li><a href="plugins.php">Plugins</a></li>
-						<?php if (already_login()) {echo '<li class="active"><a href="configs.php">Configs</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="icsfind.php">ICSfind</a></li>';}?>
 						<li><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
 					</ul>
@@ -174,29 +240,41 @@ EOF;
 				<div class="container" >
 						<h2 class="page-header">
 							<!-- <span class="glyphicon glyphicon-th"></span> -->
-							Config&nbsp;
+							VulScans&nbsp;
 							<a href="task_create.php"><span class="glyphicon glyphicon-plus"></span></a>
 							<a href="#"><span class="glyphicon glyphicon-search"></span></a>
 						</h2>
 						<div class="form-inline">
+<!-- 							<div class="form-group">
+								<input type="text" class="form-control" value="2012-05-15" id="datetimepicker" data-date-format="yyyy-mm-dd">
+							</div> -->
+							<div class="btn-group">
+								<select class="form-control" name="level" id="level">
+									<option value="0">All Level</option>
+									<option value="1">Informational</option>
+									<option value="2">Low</option>
+									<option value="3">Medium</option>
+									<option value="4">High</option>
+								</select>
+							</div>
 							<div class="form-group">
 								<input type="text" class="form-control" id="keyword" placeholder="Keyword" name="keyword">
 							</div>
 							<button id="search" class="btn btn-default">Search</button>
 						</div>
 					<div class="table-responsive">
-						<table id="config_table" class="table table-striped">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th style="width: 10%">Name</th>
-									<th style="width: 15%">Time</th>
-									<th style="width: 60%">Config</th>
-									<th style="width: 5%">Auto Increament</th>
-									<th style="width: 10%">Description</th>
-									<th style="width: 10%">Is Default</th>
-								</tr>
-							</thead>
+						<table id="scans_table" class="table table-striped">
+								<thead>
+										<tr>
+												<th>ID</th>
+												<th style="width: 25%">URL/IP</th>
+												<th style="width: 15%">StartTime</th>
+												<th style="width: 5%">CostTime</th>
+												<th style="width: 5%">Level</th>
+												<th style="width: 50%">Arguments</th>
+												<th>User_Name</th>
+										</tr>
+								</thead>
 						</table>
 					</div>
 				</div>
@@ -216,7 +294,7 @@ EOF;
 			</div>
 			<hr>
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 		</div>
 

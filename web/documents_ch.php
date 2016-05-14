@@ -12,7 +12,7 @@ require_once('common.php');
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<!-- Custom styles for this template -->
@@ -48,12 +48,12 @@ require_once('common.php');
 						<span class="icon-bar">3</span>
 					</button>
 <!-- 					<img src="images/favicon.ico" class="img-circle"> -->
-					<a class="navbar-brand" href="#"><strong>Hammer</strong></a>
+					<a class="navbar-brand" href="#"><strong>ICSScan</strong></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li><a href="plugins.php">Plugins</a></li>
 						<li class="active"><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
@@ -119,11 +119,11 @@ EOF;
 				<div class="col-xs-12 col-sm-9 col-md-10" role="main" class="main">
 
 					<h2 id="about">关于</h2>
-						<p>Hammer 不只是一款网络扫描器，更是一个扫描框架，一句话比喻，Hammer是开源的yascanner（当然，目前功能还远不如yascanner，yascanner是我的偶像），与yascanner类似，它偏向于WEB漏洞的收集与检测，不太具有攻击性，有喜欢这种类型的妹子否？</p>
+						<p>ICSScan 不只是一款网络扫描器，更是一个扫描框架，一句话比喻，ICSScan是开源的yascanner（当然，目前功能还远不如yascanner，yascanner是我的偶像），与yascanner类似，它偏向于WEB漏洞的收集与检测，不太具有攻击性，有喜欢这种类型的妹子否？</p>
 						<p>开源不易，希望大家也能够开源出自己的插件。</p>
 					<hr>					
 					<h2 id="plugin">插件</h2>
-					<p>下面是一个典型的Hammer插件，功能为扫描robots.txt文件存在与否:</p>
+					<p>下面是一个典型的ICSScan插件，功能为扫描robots.txt文件存在与否:</p>
 					<pre>
 #!/usr/bin/python2.7
 #coding:utf-8
@@ -180,8 +180,8 @@ info = {
 services = {
 	# 常用的
 	'ip':'127.0.0.1',	#被扫描的ip地址
-	'host':'www.hammer.org',	#被扫描的host域名
-	'url':'http://www.hammer.org',	#被扫描的url
+	'host':'www.ICSScan.org',	#被扫描的host域名
+	'url':'http://www.ICSScan.org',	#被扫描的url
 	'cms':'Wordpress',	# cms类型，基于whatweb扫描结果分析，详情请参考whatweb插件
 	'cmsversion':'3.9.1',	# cms版本，同上 
 	'ports': [22,80],	# 端口号
@@ -253,7 +253,7 @@ if locals().has_key('Audit'):
 					<h3>2. whatweb识别cms</h3>
 					<p>本工具中的cms识别采用的是whatweb，有一个whatweb类，在lib/whatWeb_class.py。</p>
 					<p>考虑到原生的whatweb的插件众多，影响扫描效率，所以在lib/whatweb目录下是一个经过插件简化的whatweb。PS：注意kali下whatweb会自动包含/usr/local/share/whatweb目录下的插件，所以也注释了下whatweb的几行代码，有空再找出来细说。</p>
-					<p>Hammer的whatweb插件位于Info_Collect目录下，仍需补充完善，结构如下：</p>
+					<p>ICSScan的whatweb插件位于Info_Collect目录下，仍需补充完善，结构如下：</p>
 					<pre>
 def Audit(services):
 	retinfo = {}
@@ -309,7 +309,7 @@ def Audit(services):
 					<hr>
 					<h2 id="questions">问题</h2>
 					<h4>1. Windows, Linux or Mac?</h4>
-					<p>For now, suggest run hammer on linux.</p>
+					<p>For now, suggest run ICSScan on linux.</p>
 					<h4>2. 中文版什么时候出？</h4>
 					<p>这不就是么。。。</p>
 					<h4>3. 自己写的插件怎么提交？</h4>
@@ -332,7 +332,7 @@ def Audit(services):
 			<hr>
 
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 
 		</div>

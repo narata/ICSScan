@@ -1,6 +1,7 @@
 <?php
 require_once('common.php');
 ?>
+
 <?php
 // check session first
 if(already_login()){
@@ -8,7 +9,7 @@ if(already_login()){
 	header('Location: index.php');
 	exit;
 }
-// print 'hehe';
+
 $user = check_sql(trim($_POST['username']));
 $pwd = check_sql(trim($_POST['password']));
 // var_dump($_POST);
@@ -22,6 +23,7 @@ if (login_check($user,$pwd)) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
 	<head>
@@ -94,24 +96,18 @@ if (login_check($user,$pwd)) {
 								<div class="form-group">
 									<!-- <label for="username">Username</label> -->
 									<input type="text" class="form-control" name="username" placeholder="Username">
-									<div style="float:right;">
-										<a href="signin.php" tabindex="-1">Sign?</a>
-									</div>
 									
 								</div>
 								<div class="form-group">
 									<!-- <label for="password">Password</label> -->
 									<input type="password" class="form-control" name="password" placeholder="Password">
-									<div style="float:right;">
-										<a href="findpwd.php" tabindex="-1">Forget password?</a>
-									</div>
 								</div>
 								<div>
 									<div style="float:left;">
 										<button type="submit" class="btn btn-default">Submit</button>
 									</div>
 									<!-- <div style="float:right;">
-										<a href="about.html">About Hammer</p>
+										<a href="about.html">About ICSScan</p>
 									</div> -->
 								</div>
 							</form>

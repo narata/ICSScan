@@ -12,7 +12,7 @@ require_once('common.php');
 		<meta name="author" content="">
 		<link rel="icon" href="images/favicon.ico">
 
-		<title>Hammer</title>
+		<title>ICSScan</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<!-- Custom styles for this template -->
@@ -48,12 +48,12 @@ require_once('common.php');
 						<span class="icon-bar">3</span>
 					</button>
 <!-- 					<img src="images/favicon.ico" class="img-circle"> -->
-					<a class="navbar-brand" href="#"><strong>Hammer</strong></a>
+					<a class="navbar-brand" href="#"><strong>ICSScan</strong></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<?php if (already_login()) {echo '<li><a href="scans.php">Scans</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li><a href="plugins.php">Plugins</a></li>
 						<li class="active"><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
@@ -119,7 +119,7 @@ EOF;
 				<div class="col-xs-12 col-sm-9 col-md-10" role="main" class="main">
 
 					<h2 id="about">About</h2>
-						<p>Hammer is a web vulnnerability scanner, but more of a vulnerability scan framework. It supports plug-in extensions, you can design your own hammer, that is your hacking tool. Hammer is open source, and i hope you can share yours!</p>
+						<p>ICSScan is a web vulnnerability scanner, but more of a vulnerability scan framework. It supports plug-in extensions, you can design your own ICSScan, that is your hacking tool. ICSScan is open source, and i hope you can share yours!</p>
 					<hr>					
 					<h2 id="plugin">Plugin Interfaces</h2>
 					<p>The following is a typical plugin with detailed comments, To detect the sensitive information in robots.txt:</p>
@@ -177,8 +177,8 @@ info = {
 services = {
 	# commonly used
 	'ip':'127.0.0.1',
-	'host':'www.hammer.org',
-	'url':'http://www.hammer.org',
+	'host':'www.ICSScan.org',
+	'url':'http://www.ICSScan.org',
 	'cms':'Wordpress',	# please refer whatweb plugin
 	'cmsversion':'3.9.1',
 	'ports': [22,80],	# a list port table, please refer portscan plugin
@@ -217,11 +217,11 @@ Others			# in directory plugins/Others
 					<hr>	
 					<h2 id="questions">Questions</h2>
 					<h4>1. Windows, Linux or Mac?</h4>
-					<p>For now, suggest run hammer on linux.</p>
+					<p>For now, suggest run ICSScan on linux.</p>
 					<h4>2. 中文版什么时候出？</h4>
 					<p>尽快，最近有点忙。。。</p>
 					<h4>3. 自己写的插件怎么提交？</h4>
-					<p>建议在github加入这个项目，发我邮件我整理也行～～Hammer只是一个框架，只有大家一起开发插件，Hammer才能变成一个扫描器</p>
+					<p>建议在github加入这个项目，发我邮件我整理也行～～ICSScan只是一个框架，只有大家一起开发插件，ICSScan才能变成一个扫描器</p>
 					<h4>4. 如何测试自己的插件？</h4>
 					<p>每个插件都是可以自己单独运行的，所以单独测试就ok，也请大家测试完成后再提交</p>	
 					<hr>	
@@ -240,7 +240,7 @@ Others			# in directory plugins/Others
 			<hr>
 
 			<footer>
-				<p>© Company 2014</p>
+				<p>© ICS-426-2016</p>
 			</footer>
 
 		</div>
