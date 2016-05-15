@@ -171,10 +171,10 @@ if (!already_login()) {
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.php">Home</a></li>
-				<?php if (already_login()) {echo '<li class="active"><a href="portscans.php">PortScans</a></li>';}?>
+				<?php if (already_login()) {echo '<li ><a href="portscans.php">PortScans</a></li>';}?>
 				<?php if (already_login()) {echo '<li ><a href="vulscans.php">VulScans</a></li>';}?>
 				<li><a href="plugins.php">Plugins</a></li>
-				<?php if (already_login()) {echo '<li><a href="icsfind.php">ICSfind</a></li>';}?>
+				<?php if (already_login()) {echo '<li class="active"><a href="icsfind.php">ICSfind</a></li>';}?>
 				<li><a href="documents.php">Documents</a></li>
 				<li><a href="about.php">About</a></li>
 			</ul>

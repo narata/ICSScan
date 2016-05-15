@@ -2,7 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import socket
+import struct
+from threading import *
 import sys
+sys.path.append("..")
+from sql_db.connect import connect_db
+
+con = connect_db()
+cur = con.cursor()
 
 _errors = {
         0:      'No reply',
@@ -29,9 +36,9 @@ def _0xtochar(_0x):
             rechar = rechar + chr(int(_0x[i*2]+_0x[i*2+1], 16))
         return rechar
 
-def modbus_scan(host):
+def modbus_scan(host, timeout):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(10)
+    s.settimeout(timeout)
     try:
         s.connect((host, 502))
     except socket.error, e:
@@ -57,7 +64,13 @@ def modbus_scan(host):
             if re_data[0] == "Not modbus":
                 break
     s.close()
-    return re_data[0][1]
+    result =  re_data[0][1]
+    if (cur.execute('select * from ICSfind where ip = %s', [host]) != 0):
+        cur.execute('update ICSfind set protocol = "Modbus" , info = %s where ip = %s', [result, host])
+    else:
+        cur.execute('insert into ICSfind (ip, protocol, info) values(%s, %s, %s)', [host, 'Modbus', result])
+    con.commit()
+    return 1
 
 def print_recv(data):
     total_len = len(data)
@@ -93,10 +106,37 @@ def print_recv(data):
             return (ord(data[6]), "Device info error: unknow error")
 
 def main():
-    host = sys.argv[1]
+    threads = int(sys.argv[2])
+    timeout = int(sys.argv[3])
 
-    data = modbus_scan(host)
-    print data
+    if ',' in sys.argv[1]:
+        host_list = sys.argv[1].split(',')
+        for host in host_list:
+            while(True):
+                if activeCount() <= threads:
+                    Thread(target=modbus_scan, args=(host, timeout)).start()
+                    break
+                else:
+                    continue
+
+    elif '-' in sys.argv[1]:
+        host_list = sys.argv[1].split('-')
+        start_ip = socket.ntohl(struct.unpack('I', socket.inet_aton(str(host_list[0])))[0])
+        end_ip = socket.ntohl(struct.unpack('I', socket.inet_aton(str(host_list[1])))[0])
+        for host in range(start_ip, end_ip + 1):
+            host = socket.inet_ntoa(struct.pack('I', socket.htonl(host)))
+            while (True):
+                if activeCount() <= threads:
+                    Thread(target=modbus_scan, args=(host, timeout)).start()
+                    break
+                else:
+                    continue
+    else:
+        host = sys.argv[1]
+        modbus_scan(host, timeout)
+    while(True):
+        if activeCount() < 2:
+            return 1
 
 if __name__ == '__main__':
-    main()
+    print main()

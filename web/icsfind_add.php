@@ -15,8 +15,8 @@ $host = $arguments['global']['ip'];
 $threads = $arguments['global']['threads'];
 $timeout = $arguments['global']['timeout'];
 $choose = $arguments['global']['choose'];
-
-$command = "python ../portscan/scan.py $host $threads $timeout $choose";
+if($choose == "modbus")
+	$command = "python ../protocol/modbus.py $host $threads $timeout";
 system($command, $return_var);
 echo $return_var[0];
 

@@ -158,46 +158,62 @@ EOF;
 				<div class="col-xs-10 col-sm-10 col-md-10" role="main" class="main">
 
 					<h2 id="about">关于</h2>
-						<p>ICSScan 不只是一款网络扫描器，更是一个扫描框架，ICSScan类似开源的yascanner（当然，目前功能还远不如yascanner，yascanner是我的偶像），与yascanner类似，它偏向于WEB漏洞的收集与检测，不太具有攻击性.</p>
-						<p>开源不易，希望大家也能够开源出自己的插件，一起打造自己的锤子！！！</p>
+						<p>ICSScan 不只是一款网络扫描器，更是一个扫描框架，ICSScan基于知道创宇的开源网络漏洞扫描框架编写, 主要目的是为了工控系统的端口扫描, 协议识别, 以及漏洞的检测与收集展示</p>
 					<hr>
 					<h2 id="run">运行</h2>
-						<p></p>
+						<p>You can also use python pocsuite.py -h for more details.</p>
 						<pre class="prettyprint linenums Lang-python">
-	 ██░ ██  ▄▄▄       ███▄ ▄███▓ ███▄ ▄███▓▓█████  ██▀███  
-	▓██░ ██▒▒████▄    ▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒▓█   ▀ ▓██ ▒ ██▒
-	▒██▀▀██░▒██  ▀█▄  ▓██    ▓██░▓██    ▓██░▒███   ▓██ ░▄█ ▒
-	░▓█ ░██ ░██▄▄▄▄██ ▒██    ▒██ ▒██    ▒██ ▒▓█  ▄ ▒██▀▀█▄  
-	░▓█▒░██▓ ▓█   ▓██▒▒██▒   ░██▒▒██▒   ░██▒░▒████▒░██▓ ▒██▒
-	 ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ░  ░░ ▒░   ░  ░░░ ▒░ ░░ ▒▓ ░▒▓░
-	 ▒ ░▒░ ░  ▒   ▒▒ ░░  ░      ░░  ░      ░ ░ ░  ░  ░▒ ░ ▒░
-	 ░  ░░ ░  ░   ▒   ░      ░   ░      ░      ░     ░░   ░ 
-	 ░  ░  ░      ░  ░       ░          ░      ░  ░   ░     
-	
-Usage: ICSScan.py [Auth] [Options] [Targets]
+$ python pocsuite.py -h
 
-[Auth]
-	-s --server: your ICSScan web server host address, like www.ICSScan.org
-	-t --token: token, find it in http://www.ICSScan.org/user.php
-[Options]
-	-u --update-plugins: update new added plugins to web
-	-v --verbose: increase verbosity level
-	   --threads: max number of process, default cpu number
-	-h: help
-[Targets]
-	-T --target: target, can be an ip address, an url or an iprange
-	   --no-gather: do not use information gather module
-	   --gather-depth: information gather depth, default 1
-	-p --plugin: run a plugin type scan
-	   --plugin-arg: plugin argus
-	-l --listen: listen mode
-	   --max-size: scan pool max size, default 50
-	-c --console: console mode
-[Examples]
-	ICSScan.py -s www.ICSScan.org -t 3r75... -u plugins/Info_Collect/
-	ICSScan.py -s www.ICSScan.org -t 3r75... -T 192.168.1.1/24
-	ICSScan.py -s www.ICSScan.org -t 3r75... -p plugins/System/iisshort.py -T target</pre>
-						<h3>1. 四种运行模式————自收集扫描模式、批量扫描模式、listen模式、console模式</h3>
+Usage: python pocsuite.py [options]
+
+optional arguments:
+  -h, --help            Show help message and exit
+  --version             Show program's version number and exit
+
+target:
+  -u URL, --url URL     Target URL (e.g. "http://www.targetsite.com/")
+  -f URLFILE, --file URLFILE
+                        Scan multiple targets given in a textual file
+  -r POCFILE            Load POC from a file (e.g. "_0001_cms_sql_inj.py") or directory (e.g. "modules/")
+
+mode:
+  --verify              Run poc with verify mode
+  --attack              Run poc with attack mode
+
+request:
+  --cookie COOKIE       HTTP Cookie header value
+  --referer REFERER     HTTP Referer header value
+  --user-agent AGENT    HTTP User-Agent header value
+  --random-agent        Use randomly selected HTTP User-Agent header value
+  --proxy PROXY         Use a proxy to connect to the target URL
+  --proxy-cred PROXYCRED
+                        Proxy authentication credentials (name:password)
+  --timeout TIMEOUT     Seconds to wait before timeout connection (default 30)
+  --retry RETRY         Time out retrials times.
+  --delay DELAY         Delay between two request of one thread
+  --headers HEADERS     Extra headers (e.g. "key1: value1\nkey2: value2")
+  --host HOST           Host in HTTP headers.
+
+params:
+  --extra-params        Extra params (e.g. "{username: '***', password: '***'}")
+
+optimization:
+  --threads THREADS     Max number of concurrent HTTP(s) requests (default 1)
+  --report REPORT       Save a html report to file (e.g. "./report.html")
+  --batch BATCH         Automatically choose defaut choice without asking
+  --requires            Check install_requires
+  --quiet               Activate quiet mode, working without logger
+  --requires-freeze     Check install_requires after register
+
+Zoomeye or Seebug:
+  --dork DORK           Zoomeye dork used for search.
+  --max-page MAX_PAGE   Max page used in ZoomEye API(10 targets/Page).
+  --search-type SEARCH_TYPE
+                        search type used in ZoomEye API, web or host
+  --vul-keyword VULKEYWORD
+                        Seebug keyword used for search.</pre>
+						<h3>1. 两种运行模式————verify attack</h3>
 						<pre>
 1. 常规的类似yascanner自收集扫描模式，扫描目标为一个ip、host、url，系统会自动搜集该target相关目标
 ICSScan.py -s www.ICSScan.org -t 3r75... -T www.leesec.com
