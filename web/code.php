@@ -105,32 +105,14 @@ if (!already_login()) {
 			$.get('code_search.php',{id: pluginID},function(data){
 				var json = jQuery.parseJSON(data);
 				var name = json.data[0][1];
-				var type = json.data[0][2];
-				var author = json.data[0][3];
-				var time = parseInt(json.data[0][4]);
-				// console.log(time);
-				var version = json.data[0][5];
-				var web = json.data[0][6];	
-				var description = json.data[0][7];
+				var time = parseInt(json.data[0][2]);
+				var description = json.data[0][3];
 				console.log(description);
-				
-				var code = json.data[0][8];
+				var code = json.data[0][4];
 				$("#code h3 span:first").text(name);
 				$('#plugin_code').html(code);
+				$('#description').text(description);
 				prettyPrint();
-				var webhtml = '';
-				if(web!=''){
-					webhtml = '';
-					urls = web.split(',');
-					for (var i = 0; i < urls.length; i++) {
-					 	webhtml += "<a href=\""+urls[i]+"\">"+urls[i]+"</a><br>";
-					}; 
-				}
-				$("#description").html(webhtml+description);
-				// var d = new Date();
-				// d.setTime(time*1000);
-				// $("#author").text(d.Format("yyyy-MM-dd hh:mm:ss")+' by '+author);
-				$("#author").text(time+' by '+author)
 			});
 
 		});
@@ -163,10 +145,9 @@ if (!already_login()) {
 						</div>
 						<div>
 							<blockquote style="margin-bottom: 0px;"><strong>Description</strong></blockquote>
-							<span class="text" id="description">https://www.yascanner.com/#!/n/65</span>
+							<span class="text" id="description"></span>
 							<blockquote style="margin-bottom: 0px;"><strong>Source Code</strong></blockquote>
 							<pre class="prettyprint linenums Lang-python" id="plugin_code"></pre>
-							<blockquote style="margin-bottom: 0px;"><strong>Public Date</strong></blockquote>
 							<span class="text" id="author"></span>
 						</div>
 					</div>

@@ -92,7 +92,7 @@ if (!already_login()) {
             margin-right: 20px;
         }
     </style>
-    
+
     <script>
         function task_create(){
             // check target
@@ -111,21 +111,30 @@ if (!already_login()) {
                     }
                 }
             });
-            if ($('input:radio:checked').val() != undefined){
-                str_data += "config[global][choose]=" + $('input:radio:checked').val();
-                
+            if ($('input[name="config[global][mode]"]:checked').val() != undefined){
+                str_data += "config[global][mode]=" + $('input[name="config[global][mode]"]:checked').val() + "&";
             }
-            
+            if ($('input[name="config[global][choose_site]"]:checked').val() != undefined){
+                str_data += "config[global][choose_site]=" + $('input[name="config[global][choose_site]"]:checked').val() + "&";
+            }
+            if ($('input[name="config[global][choose_poc]"]:checked').val() != undefined){
+                str_data += "config[global][choose_poc]=" + $('input[name="config[global][choose_poc]"]:checked').val();
+            }
+            alert(str_data);
             alert("Scanning , please wait !");
 
             $.ajax({
                 type: "POST",
-                url: "portscans_add.php",
+                url: "vulscans_add.php",
                 data: str_data,
                 success: function(msg){
-                    if (msg == true) {alert('PortScans Success');}
-                    else {alert('PortScans Faild');}
-                    location.href = 'portscans.php';
+                    if (msg == 0) {alert('VulScans Success');location.href = '../vulscan/report.html';}
+                    else if(msg == 1) {alert('Poc not exist');}
+                    else if(msg == 2) {alert('Write into sql error')}
+                    else if(msg == 3) {alert('Website file not exist')}
+                    else {alert('Other error')}
+                    location.href = 'vulscans.php';
+
                 }
             });
         }
@@ -179,7 +188,7 @@ if (!already_login()) {
         <a href="javascript:history.back()">
             <span class="glyphicon glyphicon-circle-arrow-left"></span>
         </a>
-        Create PortScans
+        Create VulScans
         <!-- &nbsp;Plugin Code -->
         <!-- <a class="glyphicon glyphicon-circle-arrow-left" id="plugin_goback" href="javascript:history.back()"></a>&nbsp; -->
     </h1>
@@ -190,15 +199,15 @@ if (!already_login()) {
                 <div class="content">
                     <div class="row">
                         <div class="col-md-6" style="margin:0px">
-                            <textarea class="form-control" id="target" name="config[global][ip]" size="50" rows="3" placeholder="0.0.0.0,1.1.1.1.1"></textarea>
+                            <textarea class="form-control" id="target" name="config[global][site]" size="50" rows="3" placeholder="www.xxx.com or xxx.txt"></textarea>
                         </div>
                         <div class="col-md-6">
                             <div class="list-group" style="margin:0px">
-                                <h4 class="list-group-item-heading">Notice: Input ip address</h4>
-                                <p class="list-group-item-text">Such as: 0.0.0.0
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0,1.1.1.1.1
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0-255.255.255.255
-                             </div>
+                                <h4 class="list-group-item-heading">Notice: Input Website</h4>
+                                <p class="list-group-item-text">Such as: www.xxx.com
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;www.xxx.com,www.aaa.com
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xxx.txt
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,11 +232,30 @@ if (!already_login()) {
                     </div>
                     <div class="row form-line">
                         <div class="col-md-2">
-                            <blockquote>Types</blockquote>
+                            <blockquote>Mode</blockquote>
                         </div>
                         <div class="col-md-10">
-                            <input type="radio" name="config[global][choose]" value="common"> common
-                            <input type="radio" name="config[global][choose]" value="ics"> ics
+                            <input type="radio" name="config[global][mode]" value="--verify"> verify&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="config[global][mode]" value="--attack"> attack
+                        </div>
+                    </div>
+                    <div class="row form-line">
+                        <div class="col-md-2">
+                            <blockquote>Site</blockquote>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="radio" name="config[global][choose_site]" value="file"> file&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="config[global][choose_site]" value="website"> website
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <blockquote>Poc</blockquote>
+                        </div>
+                        <div class="col-md-10 form-inline">
+                            <input type="radio" name="config[global][choose_poc]" value="file"> file&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="config[global][choose_poc]" value="poc"> poc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="text" class="form-control" name="config[global][poc_name]" size="30" value="xxx_poc.py">
                         </div>
                     </div>
                 </div>

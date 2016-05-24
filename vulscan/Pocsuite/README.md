@@ -1,13 +1,3 @@
-
-```
-                              ,--. ,--.
- ,---. ,---. ,---.,---.,--.,--`--,-'  '-.,---.
-| .-. | .-. | .--(  .-'|  ||  ,--'-.  .-| .-. :
-| '-' ' '-' \ `--.-'  `'  ''  |  | |  | \   --.
-|  |-' `---' `---`----' `----'`--' `--'  `----'
-`--'                        http://pocsuite.org
-```
-
 [![Python 2.6|2.7](https://img.shields.io/badge/python-2.6|2.7-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv2-red.svg)](https://raw.githubusercontent.com/knownsec/Pocsuite/master/docs/COPYING) [![Twitter](https://img.shields.io/badge/twitter-@seebug-blue.svg)](https://twitter.com/sebug)
 
 简介

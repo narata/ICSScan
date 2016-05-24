@@ -125,7 +125,7 @@ if (!already_login()) {
 		}
 		function show_config(span){
 			// this.text = 'hehe';
-			console.log(span);
+			console.log(span);.
 			// span.text('test');
 			console.log(span.id);
 			var id = span.id;
@@ -133,7 +133,7 @@ if (!already_login()) {
 			$('span[id="'+id+'"]').addClass('label-info');
 
 			// console.log(this.class);
-			// console.log($(this).html());
+			// console.log($(this).html	());
 		}
 		$(document).ready(function () {
 

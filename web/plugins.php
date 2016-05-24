@@ -115,9 +115,10 @@ require_once('common.php');
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
+						<?php if (already_login()) {echo '<li><a href="vulscans.php">Portcans</a></li>';}?>
 						<?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
 						<li class="active"><a href="plugins.php">Plugins</a></li>
-						<?php if (already_login()) {echo '<li><a href="icsfind.php">icsfind</a></li>';}?>
+						<?php if (already_login()) {echo '<li><a href="icsfind.php">ICSfind</a></li>';}?>
 						<li><a href="documents.php">Documents</a></li>
 						<li><a href="about.php">About</a></li>
 					</ul>
@@ -174,21 +175,9 @@ EOF;
 						Plugins&nbsp;
 						<!-- <a href="#"><span class="glyphicon glyphicon-plus"></span></a> -->
 						<!-- <a href="#"><span class="glyphicon glyphicon-search"></span></a> -->
-						<a href="plugins_config.php"><span class="glyphicon glyphicon-cog"></span></a>
+						<a href="plugins_update.php"><span class="glyphicon glyphicon-cog"></span></a>
 					</h2>
 					<div class="form-inline">
-						<div class="btn-group">
-							<select class="form-control" name="type" id="type">
-								<option value="0">All Category</option>
-								<option value="4">Info Collect</option>
-								<option value="1">Common</option>
-								<option value="2">Sensitive Info</option>
-								<option value="3">System</option>
-								<option value="5">Web Applications</option>
-								<option value="6">Weak Password</option>
-								<option value="7">Others</option>
-							</select>
-						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" id="keyword" placeholder="Keyword" name="keyword">
 						</div>

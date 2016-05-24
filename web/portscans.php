@@ -74,77 +74,18 @@ if (!already_login()) {
                 // "ordering": false,
                 "order":    [2, "desc" ],
                 "columnDefs": [
-                    {
-                        "targets": [ 0 ],
-                        "visible": false,
-                        "searchable": false
-                    },
-                    {
-                        "targets": [1],
-                        "render": function ( data, type, full, meta ) {
-                            // return "<a class=\"plugin\" href='search.php?name="+encodeURI(data)+"'>"+data+"</a>";
-                            return "东方健康lsa";
-                        }
-                    },
-                    {
-                        "targets":[2],
-                        "render": function ( data, type, full, meta ) {
-                            var d = new Date();
-                            d.setTime(parseInt(data)*1000);
-                            // alert(d.toString());
-                            return d.Format("yyyy-MM-dd hh:mm:ss");
-                        }
-                    },
-                    {
-                        "targets":[3],
-                        "render": function ( data, type, full, meta ) {
-                            var startTime = parseInt(full[2]);
-                            var endTime = parseInt(data);
-                            if (!endTime) {
-                                return 'fdsafsa';
-                            };
-                            time = endTime - startTime;
-                            var hour = parseInt(time/3600);
-                            var min = parseInt(time/60)%60;
-                            var sec = time%60;
-                            var ret = '';
-                            if(hour){
-                                ret+=hour+'h,'+min+'m,'+sec+'s';
-                            }
-                            else{
-                                if (min) {
-                                    ret+=min+'m,'+sec+'s';
-                                }
-                                else{
-                                    ret+=sec+'s';
-                                }
-                            }
-                            return "fdasfas";
-                        },
-                    },
-                    {
-                        "targets":[4],
-                        "render": function ( data, type, full, meta ) {
-                            switch(data){
-                                case '1':
-                                    return 'info';
-                                case '2':
-                                    return 'low';
-                                case '3':
-                                    return 'medium';
-                                case '4':
-                                    return 'high';
-                                default:
-                                    return data;
-                            }
-                        }
-                    },
-                    {
-                        "targets": [ 6 ],
-                        "visible": false,
-                        "searchable": false
-                    },
                 ]
+            });
+
+            $('#plugin_goback').click(function(){
+                $('#plugins').show('slow');
+            });
+
+            //  search button click
+            $('#search').click(function() {
+                /* Act on the event */
+                var ajax_url = "./portscans_search.php?&keyword="+$('#keyword').val();
+                $('#scans_table').DataTable().ajax.url(ajax_url).load();
             });
 
         });
@@ -172,7 +113,7 @@ if (!already_login()) {
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Home</a></li>
                 <?php if (already_login()) {echo '<li class="active"><a href="portscans.php">PortScans</a></li>';}?>
-                <?php if (already_login()) {echo '<li ><a href="vulscans.php">VulScans</a></li>';}?>
+                <?php if (already_login()) {echo '<li><a href="vulscans.php">VulScans</a></li>';}?>
                 <li><a href="plugins.php">Plugins</a></li>
                 <?php if (already_login()) {echo '<li><a href="icsfind.php">ICSfind</a></li>';}?>
                 <li><a href="documents.php">Documents</a></li>
@@ -234,30 +175,24 @@ EOF;
                 <a href="#"><span class="glyphicon glyphicon-search"></span></a>
             </h2>
             <div class="form-inline">
+                <!-- 							<div class="form-group">
+                                                <input type="text" class="form-control" value="2012-05-15" id="datetimepicker" data-date-format="yyyy-mm-dd">
+                                            </div> -->
+                <div class="form-group">
+                    <input type="text" class="form-control" id="keyword" placeholder="URL" name="keyword">
+                </div>
+                <button id="search" class="btn btn-default">Search</button>
             </div>
             <div class="table-responsive">
                 <table id="scans_table" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th style="width: 20%"><center>ID</center></th>
-                        <th style="width: 20%"><center>URL/IP</center></th>
-                        <th style="width: 20%"><center>ICS_PORT</center></th>
-                        <th style="width: 20%"><center>COMMON_PORT</center></th>
-                        <th style="width: 20%"><center>UPDATE_TIME</center></th>
+                        <th style="width: 20%">ID</th>
+                        <th style="width: 20%">HOST</th>
+                        <th style="width: 20%">ICS_PORT</th>
+                        <th style="width: 20%">COMMON_PORT</th>
+                        <th style="width: 20%">TIME</th>
                     </tr>
-                    <?php
-                    $query = "SELECT * FROM PortScans";
-                    $result = mysql_query($query);
-                    while($row = mysql_fetch_row($result))
-                    {
-                        echo "<tr>";
-                        foreach ($row as $key => $value) {
-                            echo '<th><center>'.$value.'</center></th>';
-                        }
-                        echo "</tr>";
-                    }
-                    ?>
                     </thead>
                 </table>
             </div>

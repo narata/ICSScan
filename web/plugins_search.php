@@ -8,33 +8,6 @@ function search_plugin($type=0,$keyword=''){
 	$pType = $type;
 	$pKeyword = $keyword;
 	$query = "SELECT ID,Name,Author,Time,Description FROM Plugin WHERE Name LIKE '%$pKeyword%'";
-	// print $query;
-	switch ($pType) {
-		case 0:
-			break;
-		case 1:
-			$query = $query . ' AND Type=\'Common\'';
-			break;
-		case 2:
-			$query = $query . ' AND Type=\'Sensitive_Info\'';
-			break;
-		case 3:
-			$query = $query . ' AND Type=\'System\'';
-			break;
-		case 4:
-			$query = $query . ' AND Type=\'Info_Collect\'';
-			break;
-		case 5:
-			$query = $query . ' AND Type=\'Web_Applications\'';
-			break;
-		case 6:
-			$query = $query . ' AND Type=\'Weak_Password\'';
-			break;
-		case 7:
-			$query = $query . ' AND Type=\'Others\'';
-			break;
-	}
-	// print($query.'<br>');
 	$ret = array('data' => array(), );
 	$result = mysql_query($query);
 	while ($row = mysql_fetch_row($result)){

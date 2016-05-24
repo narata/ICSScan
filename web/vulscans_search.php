@@ -2,9 +2,8 @@
 require_once('common.php');
 
 //
-function search_scan($level,$keyword='',$scanid=0){
+function search_scan($keyword='',$scanid=0){
 	// $pKeyword = check_sql($keyword);
-	$pLevel = $level;
 	$pKeyword = $keyword;
 	$pId = $scanid;
 	if ($userid = get_userid()) {
@@ -15,15 +14,12 @@ function search_scan($level,$keyword='',$scanid=0){
 	}
 	// echo $userid . '<br>';
 	// print $pLevel.$pKeyword;
-	$query = "SELECT Scan.ID,Scan.Url,Scan.Start_Time,Scan.End_Time,Scan.Level,Scan.Arguments,User.Name FROM Scan,User WHERE Scan.User_ID=User.ID AND Scan.User_ID='$userid'";
-	if (is_int($pLevel) and $pLevel>0 and $pLevel<5) {
-		$query .= " AND Scan.Level=$pLevel";
-	}
+	$query = "SELECT ID,Url,poc_name,poc_id,status,time FROM Scan WHERE ID > 0";
 	if ($pKeyword !='') {
-		$query .= " AND Scan.Url LIKE '%$pKeyword%'";
+		$query .= " AND Url LIKE '%$pKeyword%'";
 	}
 	if (is_int($pId) and $pId>0) {
-		$query .= " AND Scan.ID=$pId";
+		$query .= " AND ID=$pId";
 	}
 
 	// echo $query.'<br>';
@@ -49,9 +45,7 @@ if (!already_login()) {
 }
 
 $keyword = check_sql(trim($_REQUEST['keyword']));
-// echo $keyword . '<br>';
-$level = (int)($_REQUEST['level']);
 $scanID = (int)($_REQUEST['scanid']);
-$data=search_scan($level,$keyword,$scanID);
+$data=search_scan($keyword,$scanID);
 echo json_encode($data);
 ?>

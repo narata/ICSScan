@@ -1,13 +1,6 @@
 <?php
-    require_once('common.php');
-
-    $query = "SELECT * FROM PortScans";
-    $result = mysql_query($query);
-    while($row = mysql_fetch_row($result))
-    {
-        foreach ($row as $key => $value) {
-            echo $key ,':', $value;
-        }
-    }
+$command = "python ../vulscan/vulscan.py www.baidu.com --verify website file 10 5";
+exec("pwd", $a, $b);
+exec($command, $out, $status);
+echo $a[0].$b.$out[0].$status;
 ?>
-

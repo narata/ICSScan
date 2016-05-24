@@ -4,7 +4,7 @@ require_once('common.php');
 function get_code($id=0,$name=''){
 	$pID = intval($id);
 	$pName = check_sql($name);
-	$query = "SELECT ID,Name,Type,Author,Time,Version,Web,Description,Code FROM Plugin";
+	$query = "SELECT ID,Name,Time,Description,Code FROM Plugin";
 	if (is_int($pID) and $pID>0) {
 		$query .= " WHERE ID=$pID";
 	}
